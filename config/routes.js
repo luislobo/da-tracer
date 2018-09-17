@@ -34,7 +34,28 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
+  },
+  'GET /connect': {
+    controller: 'database',
+    action: 'showConnectPage'
+  },
+  'POST /connect': {
+    controller: 'database',
+    action: 'connect'
+  },
+  'GET /stream': {
+    controller: 'database',
+    action: 'showStreamPage'
+  },
+  'POST /stream/start': {
+    controller: 'database',
+    action: 'startStream'
+  },
+  'POST /stream/stop': {
+    controller: 'database',
+    action: 'stopStream'
   }
+
 
   /***************************************************************************
   *                                                                          *

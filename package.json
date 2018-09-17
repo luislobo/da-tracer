@@ -1,8 +1,8 @@
 {
   "name": "da-tracer",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "1.0.0",
+  "description": "DA-Tracer! - Database Agnostic Tracer",
   "keywords": [],
   "dependencies": {
     "ejs": "2.3.4",
@@ -23,19 +23,20 @@
     "mongodb": "^3.1.6",
     "rc": "1.0.1",
     "sails": "~0.12.14",
-    "sails-disk": "~0.10.9"
+    "sails-hook-apianalytics": "^2.0.3"
   },
   "scripts": {
     "debug": "node debug app.js",
+    "postinstall": "bower install",
     "start": "node app.js"
   },
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/luis/da-tracer.git"
+    "url": "git://github.com/luislobo/da-tracer.git"
   },
-  "author": "luis",
-  "license": "",
+  "author": "Luis Lobo Borobia",
+  "license": "MIT",
   "devDependencies": {
     "bower": "^1.8.4",
     "nodemon": "^1.18.4"

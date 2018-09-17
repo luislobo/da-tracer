@@ -1,0 +1,25 @@
+@import "variables.less";
+
+body { padding-top: 70px; }
+
+.navbar {
+    #nav-bar-link {
+        font-size: 2em;
+        color: @app-nav-bar-title-color;
+        &hover {
+            color: @app-nav-bar-title-color;
+        }
+        #nav-bar-title {
+            vertical-align: middle;
+            padding-left:.5em;
+        }
+    }
+}
+
+.navbar-inverse {
+    background-color: @app-navbar-background-color;
+    .navbar-brand {
+        color: @app-navbar-brand-color;
+        background-image: url('/images/tracer-32.png')
+    }
+}

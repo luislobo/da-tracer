@@ -1,0 +1,66 @@
+<script type="text/javascript">
+  io.sails.transports = ['websocket'];
+
+  $(function () {
+    console.log('app started')
+
+    Vue.component('change-message', {
+      props: ['message'],
+      template: `
+      <tr scope="row" class="change-message">
+        <td>{{message.localDate}}</td>
+        <td>{{message.db}}</td>
+        <td>{{message.collection}}</td>
+        <td>{{ message.operation }}</td>
+        <td><pre>{{message.document}}</pre></td>
+      </tr>`
+    })
+
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        messages: []
+      },
+      created: function () {
+        console.log('app created')
+        var _this = this
+        // Load existing chat messages
+        io.socket.post('/stream/start', function () {
+          console.log('connected to the stream')
+        });
+
+        // Listen for new chat messages
+        io.socket.on('message', function (message) {
+          console.log('new message arrived')
+          message.localDate = new Date(message.timestamp).toLocaleString();
+          _this.messages.unshift(message)
+        });
+      },
+      beforeDestroy: function () {
+        io.socket.post('/stream/stop', console.log);
+      }
+    });
+  });
+</script>
+
+<div id="app" class="container">
+  <div class="well well-default">
+    <h3 class='text-center'>Streams</h3>
+    <hr />
+    <table class="table">
+      <thead>
+        <th scope="col">Timestamp</th>
+        <th scope="col">Database</th>
+        <th scope="col">Collection</th>
+        <th scope="col">Operation</th>
+        <th scope="col">Document</th>
+      </thead>
+      <tbody>
+        <tr is="change-message" v-for="(message, index) in messages" v-bind:message="message" v-bind:index="index"
+          v-bind:key="message._id"></tr>
+      </tbody>
+
+    </table>
+  </div>
+</div> <!-- /container -->

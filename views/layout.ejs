@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
 
-    <!-- Viewport mobile tag for sensible mobile support -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+  <title>
+    <%=typeof title == 'undefined' ? 'New Sails App' : title%>
+  </title>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
-    <!--
+  <!--
         Stylesheets and Preprocessors
         ==============================
 
@@ -28,18 +31,36 @@
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
 
-    <!--STYLES-->
-    <link rel="stylesheet" href="/styles/importer.css">
-    <!--STYLES END-->
-    <link rel="stylesheet" href="/themes/<%= typeof theme == 'undefined' ? 'default' : 'theme' %>.css">
-  </head>
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/importer.css">
+  <!--STYLES END-->
+  <!--SCRIPTS-->
+  <script src="/js/dependencies/sails.io.js"></script>
+  <script src="/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!--SCRIPTS END-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
 
-  <body>
-    <%- body %>
+<body>
+  <div class="container">
+    <div class="container">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <a id="nav-bar-link" class="pull-left" href="/"><img src="/images/tracer-64.png"><span id='nav-bar-title'>DA-Tracer</span></a>
+      </nav><!-- Main jumbotron for a primary marketing message or call to action -->
+    </div>
+    <div class="container">
+      <%- body %>
+    </div>
+    <hr>
+    <footer>
+      <p class="pull-right">© 2019 Luis Lobo Borobia</p>
+    </footer>
+  </div>
 
 
-
-    <!--
+  <!--
         Client-side Templates
         ========================
 
@@ -60,12 +81,12 @@
               stringfile before they're served.
     -->
 
-    <!--TEMPLATES-->
-    
-    <!--TEMPLATES END-->
+  <!--TEMPLATES-->
+  
+  <!--TEMPLATES END-->
 
 
-    <!--
+  <!--
 
       Client-side Javascript
       ========================
@@ -87,11 +108,6 @@
           + Use a different preprocessor, like TypeScript
 
     -->
+</body>
 
-    <!--SCRIPTS-->
-    <script src="/js/dependencies/sails.io.js"></script>
-    <script src="/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!--SCRIPTS END-->
-  </body>
 </html>
