@@ -1,0 +1,19 @@
+{
+  "name": "da-tracer",
+  "description": "DA-Tracer!",
+  "main": "app.js",
+  "authors": [
+    "luis"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
