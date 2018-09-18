@@ -10,13 +10,26 @@ module.exports = {
     if (req.body.uri && req.body.databaseName) {
       return MongodbService.connect(req.body.uri, req.body.databaseName)
         .then(() => {
-          res.ok()
+          return MongodbService.isReplicaSet()
+            .then((replicaSetStatus) => {
+              console.log(`It's a replica set ${replicaSetStatus}`)
+              return res.ok()
+            })
         })
-        .catch((err) => {
-          res.serverError(err)
-        })
+        .catch(res.serverError)
     }
-    res.badRequest('Missing connection options')
+    return res.badRequest('Missing connection options')
+  },
+  close(req, res) {
+    if (!req.isSocket) {
+      res.badRequest('Socket request required')
+    }
+    sails.sockets.leave(req, 'change-stream');
+    MongodbService.removeAllListeners()
+    MongodbService.unsubscribeFromAll()
+      .then(() => MongodbService.close())
+      .then(() => res.ok())
+      .catch(res.serverError)
   },
   showStreamPage(req, res) {
     if (MongodbService.isConnected()) {
@@ -25,31 +38,36 @@ module.exports = {
     return res.redirect('/connect')
   },
   startStream(req, res) {
+    if (!MongodbService.isConnected()) {
+      res.serverError('Database not connected')
+    }
     if (!req.isSocket) {
       res.badRequest('Socket request required')
     }
     sails.sockets.join(req, 'change-stream');
     MongodbService.on('change', (data) => {
-      console.log('received new change', data)
+
+      sails.log.verbose('received new change', data)
       const simpleData = {}
       simpleData.timestamp = data.documentKey._id.getTimestamp()
       simpleData.operation = data.operationType
       simpleData._id = data.documentKey._id.toString()
       simpleData.db = data.ns.db
       simpleData.collection = data.ns.coll
-      simpleData.document = JSON.stringify(data.fullDocument, null, 2)
-      console.log('broadcasting', simpleData)
+      if(simpleData.operation === 'insert') {
+        simpleData.document = JSON.stringify(data.fullDocument, null, 2)
+      } else if(simpleData.operation === 'update') {
+        simpleData.document = data.updateDescription
+      }
+      sails.log.verbose('broadcasting', simpleData)
+      sails.log.info('new change', simpleData._id)
       sails.sockets.broadcast('change-stream', 'message', simpleData);
     })
     MongodbService.subscribeToAll()
-    res.ok('subscribed')
-  },
-  stopStream(req, res) {
-    if (!req.isSocket) {
-      res.badRequest('Socket request required')
-    }
-    sails.sockets.leave(req, 'change-stream');
-    res.ok('unsubscribed')
+      .then(() => {
+        res.ok('subscribed')
+      })
+      .catch(res.serverError)
   }
 
 }

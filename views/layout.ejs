@@ -3,7 +3,7 @@
 
 <head>
   <title>
-    <%=typeof title == 'undefined' ? 'New Sails App' : title%>
+    <%=typeof title == 'undefined' ? 'DA-Tracer!' : title%>
   </title>
 
   <!-- Viewport mobile tag for sensible mobile support -->
@@ -32,30 +32,34 @@
     -->
 
   <!--STYLES-->
+  <link rel="stylesheet" href="/styles/darcula.css">
   <link rel="stylesheet" href="/styles/importer.css">
   <!--STYLES END-->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
   <!--SCRIPTS-->
   <script src="/js/dependencies/sails.io.js"></script>
   <script src="/vendor/jquery/dist/jquery.min.js"></script>
   <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/js/dependencies/highlight.pack.js"></script>
   <!--SCRIPTS END-->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <div class="container">
+  <div class="container-fluid">
+    <div class="container-fluid">
       <nav class="navbar navbar-inverse navbar-fixed-top">
         <a id="nav-bar-link" class="pull-left" href="/"><img src="/images/tracer-64.png"><span id='nav-bar-title'>DA-Tracer</span></a>
       </nav><!-- Main jumbotron for a primary marketing message or call to action -->
     </div>
-    <div class="container">
+    <div class="container-fluid">
       <%- body %>
     </div>
     <hr>
     <footer>
-      <p class="pull-right">© 2019 Luis Lobo Borobia</p>
+      <p class="pull-right">© 2018 Luis Lobo Borobia</p>
     </footer>
   </div>
 

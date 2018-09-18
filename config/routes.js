@@ -43,6 +43,10 @@ module.exports.routes = {
     controller: 'database',
     action: 'connect'
   },
+  'POST /close': {
+    controller: 'database',
+    action: 'close'
+  },
   'GET /stream': {
     controller: 'database',
     action: 'showStreamPage'
@@ -50,10 +54,6 @@ module.exports.routes = {
   'POST /stream/start': {
     controller: 'database',
     action: 'startStream'
-  },
-  'POST /stream/stop': {
-    controller: 'database',
-    action: 'stopStream'
   }
 
 

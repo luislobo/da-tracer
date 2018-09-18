@@ -8,8 +8,8 @@
     var app = new Vue({
       el: '#app',
       data: {
-        uri: 'mongodb+srv://datracer:qwer1234@datracercluster-rrswx.mongodb.net/?retryWrites=true',
-        databaseName: 'test',
+        uri: '',
+        databaseName: '',
         errorMessage: '',
         response: null
       },
@@ -33,8 +33,9 @@
               window.location.href = '/stream'
             })
             .catch(function (error) {
-              console.error(error);
-              _this.errorMessage = error.message;
+              var msg = _.get(error,'response.data.message', _.get(error,'response.data', error.message));
+              console.error(msg)
+              _this.errorMessage = msg;
             });
         }
       }
