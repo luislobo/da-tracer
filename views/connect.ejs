@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
   $(function () {
-    var url = "";
+    var url = ''
 
     Vue.prototype.$http = axios
 
@@ -16,49 +16,79 @@
       methods: {
         connect: function (event) {
           var _this = this
-          event.preventDefault();
+          event.preventDefault()
 
           var payload = {
             uri: this.uri,
+            clusterName: this.clusterName,
+            user: this.user,
+            password: this.password,
             databaseName: this.databaseName
-          };
+          }
 
           // send get request
           this.$http
             .post(url, payload)
             .then(function (data) {
               // set data on vm
-              this.response = data;
-              _this.errorMessage = 'Connected!';
+              this.response = data
+              _this.errorMessage = 'Connected!'
               window.location.href = '/stream'
             })
             .catch(function (error) {
-              var msg = _.get(error,'response.data.message', _.get(error,'response.data', error.message));
+              var msg = _.get(error, 'response.data.message', _.get(error, 'response.data', error.message))
               console.error(msg)
-              _this.errorMessage = msg;
-            });
+              _this.errorMessage = msg
+            })
         }
       }
-    });
-  });
+    })
+  })
 </script>
 
 <div id="app" class="container">
   <div class="well well-default">
     <h3 class='text-center'>Connect to MongoDB</h3>
-    <hr />
+    <hr/>
     <form id='connect-form' v-on:submit="connect" method="POST" action="/connect" class="form-horizontal">
-      <div class="form-group">
-        <label for="uri" class="col-xs-3 control-label">URI</label>
-        <div class="col-xs-9">
-          <input type="text" v-model="uri" required="required" class="form-control" id="uri" name="uri" placeholder="ex: mongodb://localhost:27017">
-        </div>
-      </div>
       <div class="form-group">
         <label for="database-name" class="col-xs-3 control-label">Database Name</label>
         <div class="col-xs-9">
-          <input type="text" v-model="databaseName" required="required" class="form-control" id="database-name" name="database-name"
-            placeholder="ex: test">
+          <input type="text" v-model="databaseName" required="required" class="form-control"
+                 id="database-name" name="database-name"
+                 placeholder="ex: test">
+        </div>
+      </div>
+      <hr/>
+      <div class="form-group">
+        <label for="uri" class="col-xs-3 control-label">URI</label>
+        <div class="col-xs-9">
+          <input type="text" v-model="uri" class="form-control" id="uri" name="uri"
+                 placeholder="ex: mongodb://localhost:27017">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 control-label">OR</label>
+      </div>
+      <div class="form-group">
+        <label for="uri" class="col-xs-3 control-label">Cluster Name</label>
+        <div class="col-xs-9">
+          <input type="text" v-model="clusterName" class="form-control" id="clusterName"
+                 name="clusterName" placeholder="ex: datracercluster-rrswx.mongodb.net">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="uri" class="col-xs-3 control-label">user</label>
+        <div class="col-xs-9">
+          <input type="text" v-model="user" class="form-control" id="user" name="user"
+                 placeholder="ex: datracer">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="uri" class="col-xs-3 control-label">Password</label>
+        <div class="col-xs-9">
+          <input type="password" v-model="password" class="form-control" id="password"
+                 name="password" placeholder="ex: sup3r.s3cur3">
         </div>
       </div>
       <div class="form-group">
