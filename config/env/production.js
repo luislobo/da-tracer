@@ -12,6 +12,10 @@
 
 module.exports = {
 
+  lifejacket: {
+    ensureHttps: true,
+    host: 'datracer.luislobo.xyz'
+  },
   /***************************************************************************
    * Set the default database connection for models in the production        *
    * environment (see config/connections.js and config/models.js )           *
@@ -35,4 +39,4 @@ module.exports = {
   //   level: "silent"
   // }
 
-};
+}

@@ -20,6 +20,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
+    "lifejacket": "^0.9.4",
     "lodash": "^4.17.11",
     "mongodb": "^3.1.6",
     "rc": "1.0.1",
